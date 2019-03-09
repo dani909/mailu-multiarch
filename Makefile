@@ -18,9 +18,7 @@ source:
 	cd build && git fetch
 	cd build && git reset HEAD --hard && git checkout origin/$(VERSION)
 
-push: all
-	push = ctr -n buildkit image push $(REPO)/$(PREFIX)$(img):$(VERSION) $(if $(USER), -u $(USER):$(PASSWORD))
-	$(foreach img, $(IMAGES), $(push))
+push: $(foreach img, $(IMAGES), push-$(img))
 push-%:
 	 ctr -n buildkit image push $(REPO)/$(PREFIX)$(subst push-,,$@):$(VERSION) $(if $(USER), -u $(USER):$(PASSWORD))
 
