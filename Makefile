@@ -16,7 +16,7 @@ all: $(IMAGES)
 source:
 	$(if $(wildcard build/.git), @echo "Git repo already created", git clone https://github.com/Mailu/Mailu.git build)
 	cd build && git fetch
-	cd build && git checkout origin/$(VERSION)
+	cd build && git reset HEAD --hard && git checkout origin/$(VERSION)
 
 push: all
 	push = ctr -n buildkit image push $(REPO)/$(PREFIX)$(img):$(VERSION) $(if $(USER), -u $(USER):$(PASSWORD))
