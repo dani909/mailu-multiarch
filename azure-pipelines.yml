@@ -1,0 +1,53 @@
+strategy:
+  matrix:
+    admin:
+      img: admin
+    nginx:
+      img: nginx
+    dovecot:
+      img: dovecot
+    none:
+      img: none
+    postfix:
+      img: postfix
+    clamav:
+      img: clamav
+    postgresql:
+      img: postgresql
+    radicale:
+      img: radicale
+    traefik-certdumper:
+      img: traefik-certdumper
+    fetchmail:
+      img: fetchmail
+    rspamd:
+      img: rspamd
+    unbound:
+      img: unbound
+    rainloop:
+      img: rainloop
+    roundcube:
+      img: roundcube
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- script: sudo bash scripts/setup-binfmt.sh
+  displayName: Setup binfmt
+
+- script: bash scripts/run-containerd.sh
+  displayName: Run containerd
+
+- script: bash scripts/run-buildkit.sh
+  displayName: Run buildkit
+
+- script: BUILDKIT_HOST=tcp://0.0.0.0:1234 make $(img)
+  displayName: Build image
+
+- script: make push-$(img)
+  displayName: Push image 
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  env:
+    DOCKER_USERNAME: $(docker.username)
+    DOCKER_PASSWORD: $(docker.password)
