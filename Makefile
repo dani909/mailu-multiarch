@@ -4,8 +4,8 @@ PREFIX = mailu-multiarch-
 VERSION = master
 CACHE = # to be enabled by ci
 
-USER =
-PASSWORD =  # to be set by ci/user
+USER = ${DOCKER_USERNAME}
+PASSWORD = ${DOCKER_PASSWORD}  # to be set by ci/user
 
 FRONTEND = --frontend dockerfile.v0 --opt platform=$(PLATFORM)
 C = ,
