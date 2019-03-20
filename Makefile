@@ -4,8 +4,8 @@ PREFIX = mailu-multiarch-
 VERSION = master
 CACHE = # to be enabled by ci
 
-USER = ${DOCKER_USERNAME}
-PASSWORD = ${DOCKER_PASSWORD}  # to be set by ci/user
+USER =
+PASSWORD = # to be set by ci/user
 
 FRONTEND = --frontend dockerfile.v0 --frontend-opt platform=$(PLATFORM)
 C = ,
@@ -20,7 +20,7 @@ source:
 
 push: $(foreach img, $(IMAGES), push-$(img))
 push-%:
-	 ctr -n buildkit image push $(REPO)/$(PREFIX)$(subst push-,,$@):$(VERSION) $(if $(USER), -u $(USER):$(PASSWORD))
+	ctr -n buildkit image push $(REPO)/$(PREFIX)$(subst push-,,$@):$(VERSION) $(if $(USER), -u $(USER):$(PASSWORD))
 
 # Core
 admin: source
