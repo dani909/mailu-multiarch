@@ -1,0 +1,32 @@
+language: minimal
+dist: xenial
+
+services:
+  - docker
+
+env:
+  global:
+    - TRAVIS=true
+  matrix:
+    - IMAGE=core/admin
+    - IMAGE=core/dovecot
+    - IMAGE=core/nginx
+    - IMAGE=core/none
+    - IMAGE=core/postfix
+    - IMAGE=optional/clamav
+    - IMAGE=optional/postgresql
+    - IMAGE=optional/radicale
+    - IMAGE=optional/traefik-certdumper
+    - IMAGE=services/fetchmail
+    - IMAGE=services/rspamd
+    - IMAGE=services/unbound
+    - IMAGE=webmails/rainloop
+    - IMAGE=webmails/roundcube
+
+before_install:
+- sudo bash scripts/setup-binfmt.sh
+
+script:
+- mkdir ~/.local/share/img
+- sudo chmod -R 777 ~/.local/share/img
+- bash build.sh

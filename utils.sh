@@ -33,5 +33,11 @@ function build {
     DIR="${BUILD_DIR}/$1"
     IMG_NAME=$(basename $DIR)
 
-    img build --platform "$PLATFORMS" -t "docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}" "$DIR"
+    ARGS="--platform $PLATFORMS -t docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
+
+    if [ "$TRAVIS" != "" ];then
+      ARGS="${ARGS} --no-console"
+    fi
+
+    img build $ARGS "$DIR"
 }
