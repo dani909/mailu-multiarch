@@ -4,9 +4,9 @@ dist: xenial
 services:
   - docker
 
- cache:
-    directories:
-     - /home/travis/.local/share/img
+cache:
+  directories:
+    - /home/travis/.local/share/img
 
 env:
   global:
