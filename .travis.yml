@@ -4,13 +4,6 @@ dist: xenial
 services:
   - docker
 
-cache:
-  directories:
-    - /home/travis/.local/share/img
-
-before_cache:
-- sudo chmod -R 777 ~/.local/share/img
-
 env:
   global:
     - TRAVIS=true
