@@ -29,8 +29,9 @@ env:
 
 before_install:
 - sudo bash scripts/setup-binfmt.sh
+- bash scripts/cron-cache.sh
+- mkdir ~/.local/share/img || true
+- sudo chmod -R 777 ~/.local/share/img
 
 script:
-- mkdir ~/.local/share/img
-- sudo chmod -R 777 ~/.local/share/img
 - bash build.sh
