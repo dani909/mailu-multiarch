@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-BUILD_DIR="build"
+BUILD_DIR=${BUILD_DIR:-"repo"}
 ROOT_DIR=$(pwd)
 
-MERGE_PR="1052"
+MERGE_PR=${REPO:-"1052"}
 
-REPO="dani09"
-SUFFIX="mailu-multiarch-"
-VERSION="master"
-PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"
+REPO=${REPO:-"dani09"}
+SUFFIX=${SUFFIX:-"mailu-multiarch-"}
+VERSION=${VERSION:-"master"}
+PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"}
 
 function img {
   docker run --rm -it \
@@ -23,7 +23,7 @@ function img {
 
 function source {
   if [ ! -d "$BUILD_DIR/.git" ]; then
-    git clone https://github.com/Mailu/Mailu.git build
+    git clone https://github.com/Mailu/Mailu.git $BUILD_DIR
   else
     echo "Git repo already exists"
   fi
