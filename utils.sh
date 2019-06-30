@@ -3,6 +3,8 @@
 BUILD_DIR="build"
 ROOT_DIR=$(pwd)
 
+MERGE_PR="1052"
+
 REPO="dani09"
 SUFFIX="mailu-multiarch-"
 VERSION="master"
@@ -26,7 +28,15 @@ function source {
     echo "Git repo already exists"
   fi
   cd "$BUILD_DIR" && git fetch --all && \
-    git checkout "$VERSION" && git merge origin/"$VERSION" && cd "$ROOT_DIR"
+    git checkout "$VERSION" --force && git reset origin/$VERSION --hard && git merge origin/$VERSION
+
+  for pr in $MERGE_PR; do
+    echo "Merging pr $pr"
+    git fetch origin pull/$pr/head:$pr
+    git merge $pr
+  done
+
+  cd "$ROOT_DIR"
 }
 
 function build {
