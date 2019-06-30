@@ -34,7 +34,7 @@ before_install:
 - sudo chmod -R 777 ~/.local/share/img
 
 script:
-- travis_wait 110 bash build.sh
+- bash build.sh
 
 before_cache:
 - sudo chmod -R 777 ~/.local/share/img

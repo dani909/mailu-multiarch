@@ -51,3 +51,12 @@ function build {
 
     img build $ARGS "$DIR"
 }
+
+function travis_wait {
+  while true; do
+    sleep 120
+    echo -e "\a"
+  done
+}
+
+travis_wait &
