@@ -52,6 +52,15 @@ function build {
     img build $ARGS "$DIR"
 }
 
+function login {
+    img login -u dani09 -p "$DOCKER_PASSWORD"
+}
+
+function push {
+    IMG_NAME=$(basename $DIR)
+    img push "docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
+}
+
 function travis_wait {
   while true; do
     sleep 120

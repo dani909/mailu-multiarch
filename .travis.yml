@@ -8,9 +8,13 @@ cache:
   directories:
     - /home/travis/.local/share/img
 
+before_cache:
+- sudo chmod -R 777 ~/.local/share/img
+
 env:
   global:
     - TRAVIS=true
+    - secure: "QIpxYNLLBI0N3sjwXL9l3MCCLEhTWTUFQgeA5CjwBnbHd54eZUyYVqyAv/iCZtrABXryYv33xBwtCowxDF/y995XCg68ydZ335C9McTBJGX3/8J8MUdHg5MNSRoGAfp7m6JP4yiWqYfz8qwLDXvGabth3vTmELWkuRKIJ81OjijmDUSChDPiX/YH6dV3R8jrXsOYLF41fQa9toelifanXMAX9sMxbc6V+uTdnGgpX2gHGa/aGzWQvGNhlvZgRx5ar7zv7LTxTsjDbWLxw9ggaN4DRji0fAf3tjRvsY1P3Ay7ejfm4mUwVZ1CzVV6d2jAS3B2ml0ehWmWE8TCTrfSb/hEObM+DaZz8ZnrCtCKZI+FlqE3y2n3a+tKkRuGqgwvFpnJE4xJUhDXmbAIxktkKL/sZzZFNrNdXnTpQnJtwXgpCdUUM3w9iXiZaUAvtTKfYkaYYa6EqzpWcFLTsFJ2IM9x5XuZtSfmiQZALWQx5vh1MRK23IDFleVMT/+Toa4O5PpYF0Qexq0S4JwbBBYOibgPE7+/NQoAL1eyL1/fnvYAsOsNKcALztm1++2RgfXyJA2qi12AHO4nKY/RHT7zJYEG7VJAa23i1ptngsZmRDyG4ticuamqorO1O/ATmI5b9cwjUtCxiodbp/JdI8h1vsCrd/PLNPzmQ9NKZ91KRaQ="
   matrix:
     - IMAGE=core/admin
     - IMAGE=core/dovecot
@@ -32,9 +36,13 @@ before_install:
 - bash scripts/cron-cache.sh
 - mkdir ~/.local/share/img || true
 - sudo chmod -R 777 ~/.local/share/img
+- sudo chown -R root:root ~/.local/share/img
 
 script:
 - bash build.sh
 
-before_cache:
-- sudo chmod -R 777 ~/.local/share/img
+deploy:
+  provider: script
+  script: bash push.sh
+  on:
+    branch: master
