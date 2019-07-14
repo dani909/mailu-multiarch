@@ -57,7 +57,7 @@ function login {
 }
 
 function push {
-    IMG_NAME=$(basename $DIR)
+    IMG_NAME=$(basename $1)
     img push "docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
 }
 
