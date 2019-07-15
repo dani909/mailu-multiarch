@@ -53,7 +53,7 @@ function build {
 }
 
 function login {
-    img login docker.io -u dani09 -p "$DOCKER_PASSWORD"
+    img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
 }
 
 function push {
