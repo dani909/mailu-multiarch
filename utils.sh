@@ -13,7 +13,6 @@ PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"}
 function img {
   CRED_MOUNT_PERM="ro"
   [ "$TRAVIS" != "" ] && CRED_MOUNT_PERM="rw"
-  echo "${CRED_MOUNT_PERM}"
 
   docker run --rm -it \
     --name img \
@@ -58,7 +57,7 @@ function build {
 
 function login {
   sudo chmod 777 -R ~/.docker
-  img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
+  img login -u dani09 -p "$DOCKER_PASSWORD"
   sudo chmod 777 ~/.docker/config.json
 }
 
