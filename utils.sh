@@ -13,6 +13,7 @@ PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"}
 function img {
   CRED_MOUNT_PERM="ro"
   [ "$TRAVIS" != "" ] && CRED_MOUNT_PERM="rw"
+  echo "${CRED_MOUNT_PERM}"
 
   docker run --rm -it \
     --name img \
@@ -43,25 +44,27 @@ function source {
 }
 
 function build {
-    DIR="${BUILD_DIR}/$1"
-    IMG_NAME=$(basename $DIR)
+  DIR="${BUILD_DIR}/$1"
+  IMG_NAME=$(basename $DIR)
 
-    ARGS="--platform $PLATFORMS -t docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
+  ARGS="--platform $PLATFORMS -t docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
 
-    if [ "$TRAVIS" != "" ];then
-      ARGS="${ARGS} --no-console"
-    fi
+  if [ "$TRAVIS" != "" ];then
+    ARGS="${ARGS} --no-console"
+  fi
 
-    img build $ARGS "$DIR"
+  img build $ARGS "$DIR"
 }
 
 function login {
-    img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
+  mkdir ~/.docker
+  chmod 777 -R ~/.docker
+  img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
 }
 
 function push {
-    IMG_NAME=$(basename $1)
-    img push "docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
+  IMG_NAME=$(basename $1)
+  img push "docker.io/${REPO}/${SUFFIX}${IMG_NAME}:${VERSION}"
 }
 
 function travis_wait {
