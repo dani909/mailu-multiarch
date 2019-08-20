@@ -57,7 +57,6 @@ function build {
 }
 
 function login {
-  mkdir ~/.docker
   chmod 777 -R ~/.docker
   img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
 }
