@@ -59,6 +59,7 @@ function build {
 function login {
   sudo chmod 777 -R ~/.docker
   img login -u dani09 -p "$DOCKER_PASSWORD" docker.io
+  sudo chmod 777 ~/.docker/config.json
 }
 
 function push {
