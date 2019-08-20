@@ -8,7 +8,7 @@ MERGE_PR=${MERGE_PR}
 REPO=${REPO:-"dani09"}
 SUFFIX=${SUFFIX:-"mailu-multiarch-"}
 VERSION=${VERSION:-"master"}
-PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"}
+PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7"}
 
 function img {
   CRED_MOUNT_PERM="ro"
