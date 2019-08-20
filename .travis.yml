@@ -26,7 +26,6 @@ env:
 
 before_install:
 - sudo bash scripts/setup-binfmt.sh
-- bash scripts/cron-cache.sh
 - mkdir ~/.local/share/img || true
 - sudo chmod -R 777 ~/.local/share/img
 - sudo chown -R root:root ~/.local/share/img
