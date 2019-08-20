@@ -11,11 +11,14 @@ VERSION=${VERSION:-"master"}
 PLATFORMS=${PLATFORMS:-"linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"}
 
 function img {
+  CRED_MOUNT_PERM="ro"
+  [ "$TRAVIS" != "" ] && CRED_MOUNT_PERM="rw"
+
   docker run --rm -it \
     --name img \
     --volume $(pwd):/home/user/src:ro \
     --workdir /home/user/src \
-    --volume "${HOME}/.docker:/home/user/.docker:ro" \
+    --volume "${HOME}/.docker:/home/user/.docker:${CRED_MOUNT_PERM}" \
     --volume "${HOME}/.local/share/img:/home/user/.local/share/img" \
     --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
     r.j3ss.co/img "$@"
