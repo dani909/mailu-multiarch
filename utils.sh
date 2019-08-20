@@ -3,7 +3,7 @@
 BUILD_DIR=${BUILD_DIR:-"repo"}
 ROOT_DIR=$(pwd)
 
-MERGE_PR=${REPO:-"1052"}
+MERGE_PR=${MERGE_PR:-"1052"}
 
 REPO=${REPO:-"dani09"}
 SUFFIX=${SUFFIX:-"mailu-multiarch-"}
@@ -15,7 +15,7 @@ function img {
     --name img \
     --volume $(pwd):/home/user/src:ro \
     --workdir /home/user/src \
-    --volume "${HOME}/.docker:/root/.docker:ro" \
+    --volume "${HOME}/.docker:/home/user/.docker:ro" \
     --volume "${HOME}/.local/share/img:/home/user/.local/share/img" \
     --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
     r.j3ss.co/img "$@"
