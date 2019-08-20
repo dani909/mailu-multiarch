@@ -3,7 +3,7 @@
 BUILD_DIR=${BUILD_DIR:-"repo"}
 ROOT_DIR=$(pwd)
 
-MERGE_PR=${MERGE_PR:-"1052"}
+MERGE_PR=${MERGE_PR}
 
 REPO=${REPO:-"dani09"}
 SUFFIX=${SUFFIX:-"mailu-multiarch-"}
