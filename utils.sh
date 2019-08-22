@@ -39,6 +39,8 @@ function source {
     git merge $pr
   done
 
+  sed -i -e "s/FROM node:8 as assets/FROM --platform=amd64 node:8 as assets/g" core/admin/Dockerfile
+
   cd "$ROOT_DIR"
 }
 
